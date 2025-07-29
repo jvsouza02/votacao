@@ -1,5 +1,19 @@
 version: '3.9'
+
 services:
+  db:
+    image: postgres:15
+    container_name: votacao_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 7962
+      POSTGRES_DB: votacao
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
   votacao:
     build:
       context: .
@@ -9,7 +23,11 @@ services:
       - "50051:50051"
     depends_on:
       - redis
+      - db
+    environment:
+      DATABASE_URL: postgresql://postgres:7962@db:5432/votacao
 
+  # Worker Celery
   celery_worker:
     build:
       context: .
@@ -17,9 +35,15 @@ services:
     container_name: votacao_celery
     depends_on:
       - redis
+      - db
+    environment:
+      DATABASE_URL: postgresql://postgres:7962@db:5432/votacao
 
   redis:
     image: redis:7-alpine
     container_name: votacao_redis
     ports:
       - "6379:6379"
+
+volumes:
+  db_data:
