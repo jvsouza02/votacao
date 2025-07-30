@@ -17,7 +17,7 @@ services:
   votacao:
     build:
       context: .
-      dockerfile: ./config/votacao.dockerfile
+      dockerfile: ./docker/votacao.dockerfile
     container_name: votacao_server
     ports:
       - "50051:50051"
@@ -27,11 +27,10 @@ services:
     environment:
       DATABASE_URL: postgresql://postgres:7962@db:5432/votacao
 
-  # Worker Celery
   celery_worker:
     build:
       context: .
-      dockerfile: ./config/celery.dockerfile
+      dockerfile: ./docker/celery.dockerfile
     container_name: votacao_celery
     depends_on:
       - redis
