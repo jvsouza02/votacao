@@ -1,4 +1,4 @@
-from worker import app
+from celery import app
 from services.votacao_service import VotacaoService
 from domains.voto import Voto
 
