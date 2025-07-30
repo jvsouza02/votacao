@@ -1,6 +1,6 @@
 from datetime import datetime
 from uuid import uuid4
-from services.votacao_service import VotacaoService
+from src.services.votacao_service import VotacaoService
 import hashlib
 import hmac
 

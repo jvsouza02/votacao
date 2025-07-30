@@ -1,7 +1,7 @@
 import grpc
 from concurrent import futures
-from controllers.votacao_controller import VotacaoController
-from protos import votacao_pb2_grpc
+from src.controllers.votacao_controller import VotacaoController
+from src.protos import votacao_pb2_grpc
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

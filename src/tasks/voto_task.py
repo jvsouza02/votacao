@@ -1,6 +1,6 @@
-from celery import app
-from services.votacao_service import VotacaoService
-from domains.voto import Voto
+from config.celery import app
+from src.services.votacao_service import VotacaoService
+from src.domains.voto import Voto
 
 @app.task(bind=True)
 def processar_voto(self, id_eleicao, id_eleitor, id_candidato):

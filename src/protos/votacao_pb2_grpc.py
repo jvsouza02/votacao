@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from protos import votacao_pb2 as votacao__pb2
+from src.protos import votacao_pb2 as votacao__pb2
 
 GRPC_GENERATED_VERSION = '1.73.0'
 GRPC_VERSION = grpc.__version__

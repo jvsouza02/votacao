@@ -9,4 +9,4 @@ RUN pip install --no-cache-dir --upgrade pip && \
 
 COPY . .
 
-CMD ["celery", "-A", "worker", "worker", "--loglevel=info"]
+CMD ["celery", "-A", "config.celery", "worker", "--loglevel=info"]

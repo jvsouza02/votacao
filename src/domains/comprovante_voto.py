@@ -1,5 +1,5 @@
 from datetime import datetime
-from services.comprovante_voto_service import ComprovanteVotacaoService
+from src.services.comprovante_voto_service import ComprovanteVotacaoService
 
 comprovante_votacao_service = ComprovanteVotacaoService()
 class ComprovanteVoto:

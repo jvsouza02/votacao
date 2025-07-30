@@ -1,6 +1,6 @@
-from domains.comprovante_voto import ComprovanteVoto
-from repositories.voto_repository import VotoRepository
-from protos import eleicao_pb2, eleicao_pb2_grpc, candidato_pb2, candidato_pb2_grpc
+from src.domains.comprovante_voto import ComprovanteVoto
+from src.repositories.voto_repository import VotoRepository
+from src.protos import eleicao_pb2, eleicao_pb2_grpc, candidato_pb2, candidato_pb2_grpc
 import hashlib
 import hmac
 import grpc

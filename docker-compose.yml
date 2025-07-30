@@ -17,7 +17,7 @@ services:
   votacao:
     build:
       context: .
-      dockerfile: ./votacao.dockerfile
+      dockerfile: ./config/votacao.dockerfile
     container_name: votacao_server
     ports:
       - "50051:50051"
@@ -31,7 +31,7 @@ services:
   celery_worker:
     build:
       context: .
-      dockerfile: ./celery.dockerfile
+      dockerfile: ./config/celery.dockerfile
     container_name: votacao_celery
     depends_on:
       - redis

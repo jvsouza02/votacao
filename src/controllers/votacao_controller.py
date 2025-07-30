@@ -1,8 +1,8 @@
 import grpc
 import datetime
-from tasks import voto_task
-from protos import votacao_pb2, votacao_pb2_grpc
-from services.votacao_service import VotacaoService
+from src.tasks import voto_task
+from src.protos import votacao_pb2, votacao_pb2_grpc
+from src.services.votacao_service import VotacaoService
 
 class VotacaoController(votacao_pb2_grpc.VotacaoServiceServicer):
     def __init__(self):

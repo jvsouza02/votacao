@@ -1,7 +1,7 @@
-from models.voto_model import Voto, RegistroVotante
+from src.models.voto_model import Voto, RegistroVotante
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from database import get_db
+from config.database import get_db
 
 class VotoRepository:
     def __init__(self, db: Session = next(get_db())):

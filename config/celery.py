@@ -4,7 +4,7 @@ app = Celery(
     'votacao',
     broker='redis://redis:6379/0',
     backend='redis://redis:6379/1',
-    include=['tasks.voto_task']
+    include=['src.tasks.voto_task']
 )
 
 app.conf.update(

@@ -1,4 +1,4 @@
-from repositories.voto_repository import VotoRepository
+from src.repositories.voto_repository import VotoRepository
 import hashlib
 import hmac
 
