@@ -1,5 +1,5 @@
 import grpc
-import datetime
+from datetime import datetime
 from src.tasks import voto_task
 from src.protos import votacao_pb2, votacao_pb2_grpc
 from src.services.votacao_service import VotacaoService
