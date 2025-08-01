@@ -2,6 +2,7 @@ version: '3.9'
 
 services:
   votacao:
+    working_dir: /votacao
     build:
       context: .
       dockerfile: ./docker/votacao.dockerfile
