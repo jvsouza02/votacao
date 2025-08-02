@@ -1,21 +1,23 @@
-version: '3.9'
-
 services:
   votacao_server:
-    image: grpc_server
+    build:
+      context: .
+      dockerfile: ./docker/votacao.dockerfile
     container_name: votacao_server
     ports:
       - "8000:8000"
     depends_on:
       - grpc_server
     command: ["uvicorn", "votacao_server:app", "--host", "0.0.0.0", "--port", "8000"]
+    environment:
+      DATABASE_URL: postgresql://postgres:7962@db:5432/votacao
 
   grpc_server:
-    working_dir: /votacao
     build:
       context: .
       dockerfile: ./docker/votacao.dockerfile
     container_name: grpc_server
+    working_dir: /votacao
     ports:
       - "50051:50051"
     depends_on:
@@ -34,7 +36,7 @@ services:
       - db
     environment:
       DATABASE_URL: postgresql://postgres:7962@db:5432/votacao
-      
+
   redis:
     image: redis:7-alpine
     container_name: votacao_redis
@@ -52,5 +54,5 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
 volumes:
-    postgres-data:
-      name: votacao_postgres_data
+  postgres-data:
+    name: votacao_postgres_data
