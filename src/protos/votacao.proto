@@ -3,9 +3,9 @@ syntax = "proto3";
 package votacao.controllers.protos;
 
 message VotoRequest {
-  int32 id_eleicao = 1;
+  string id_eleicao = 1;
   int32 id_eleitor = 2;
-  int32 id_candidato = 3;
+  string id_candidato = 3;
 }
 
 message ComprovanteVoto {

@@ -5,11 +5,6 @@ import hashlib
 import hmac
 import grpc
 
-eleicao_channel = grpc.insecure_channel('localhost:50051')
-eleicao_stub = eleicao_pb2_grpc.EleicaoServiceStub(eleicao_channel)
-candidato_channel = grpc.insecure_channel('localhost:50051')
-candidato_stub = candidato_pb2_grpc.CandidatoServiceStub(candidato_channel)
-
 repository = VotoRepository()
 class VotacaoService:
     def votar(self, voto) -> ComprovanteVoto:
@@ -24,12 +19,16 @@ class VotacaoService:
         return repository.get_voto_eleitor_em_eleicao(id_eleitor, id_eleicao)
     
     def get_eleicao_ativa(self, id_eleicao: int):
+        eleicao_channel = grpc.insecure_channel('localhost:50051')
+        eleicao_stub = eleicao_pb2_grpc.EleicaoServiceStub(eleicao_channel)
         eleicao = eleicao_stub.GetEleicao(eleicao_pb2.GetEleicaoRequest(id=id_eleicao))
         if not eleicao or eleicao.status != 'EM ANDAMENTO':
             return None
         return eleicao
     
     def get_candidato_valido(self, id_candidato: int):
+        candidato_channel = grpc.insecure_channel('localhost:50051')
+        candidato_stub = candidato_pb2_grpc.CandidatoServiceStub(candidato_channel)
         candidato = candidato_stub.GetCandidato(candidato_pb2.GetCandidatoRequest(id=id_candidato))
         return True if candidato else False
         

@@ -2,8 +2,8 @@ from pydantic import BaseModel
 
 class VotoRequestModel(BaseModel):
     id_eleicao: str
-    id_eleitor: str
-    id_candidato: int
+    id_eleitor: int
+    id_candidato: str
 
 class ComprovanteVotoModel(BaseModel):
     id_comprovante_voto: str
