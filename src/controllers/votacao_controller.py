@@ -25,7 +25,7 @@ class VotacaoController(votacao_pb2_grpc.VotacaoServiceServicer):
                 mensagem="Voto computado com sucesso.",
                 comprovante=votacao_pb2.ComprovanteVoto(
                     id_comprovante_voto=str(comprovante_voto['id_comprovante_voto']),
-                    id_eleicao=int(comprovante_voto['id_eleicao']),
+                    id_eleicao=comprovante_voto['id_eleicao'],
                     data_voto=data_voto.strftime('%Y-%m-%d %H:%M:%S'),
                     data_geracao=data_geracao.strftime('%Y-%m-%d %H:%M:%S')
                 )
@@ -58,12 +58,13 @@ class VotacaoController(votacao_pb2_grpc.VotacaoServiceServicer):
                 votos_info.append(
                     votacao_pb2.VotoInfo(
                         id_voto=str(voto.id_voto),
-                        id_candidato=voto.id_candidato,
+                        id_candidato=str(voto.id_candidato),
                         data_voto=voto.data_voto.strftime('%Y-%m-%d %H:%M:%S')
                     )
                 )
             return votacao_pb2.EleicaoVotosResponse(votos=votos_info)
-        except Exception as err:
-            context.set_details(str(err))
+        except Exception as e:
+            print(f"Erro interno: {str(e)}")
             context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details(f"Erro no servidor: {str(e)}")
             return votacao_pb2.EleicaoVotosResponse()

@@ -7,7 +7,7 @@ import hmac
 votacao_service = VotacaoService()
 
 class Voto:
-    def __init__(self, id_eleicao: int, id_eleitor: int, id_candidato: int):
+    def __init__(self, id_eleicao: str, id_eleitor: int, id_candidato: str):
         self.id_voto = uuid4()
         self.id_eleicao = id_eleicao
         self.id_eleitor = id_eleitor

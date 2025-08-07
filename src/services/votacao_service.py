@@ -41,6 +41,6 @@ class VotacaoService:
             return False, "Voto inválido"
         return True, "Voto válido"
     
-    def get_eleicao_votos(self, id_eleicao: int):
+    def get_eleicao_votos(self, id_eleicao):
         return repository.get_votos_por_eleicao(id_eleicao)
         

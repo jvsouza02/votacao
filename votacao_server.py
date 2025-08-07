@@ -1,18 +1,18 @@
 from fastapi import FastAPI
 import grpc
 from src.protos import votacao_pb2, votacao_pb2_grpc
-from src.models.voto_request_response import VotoResponseModel, VotoRequestModel, ComprovanteVotoModel
+from src.models.voto_request_response import VotoResponseModel, VotoRequestModel, ComprovanteVotoModel, VotosRequestModel, VotosResponseModel
 
 app = FastAPI()
 
 @app.post('/votar', response_model=VotoResponseModel)
 async def votar(request: VotoRequestModel):
-    channel = grpc.insecure_channel('13.221.77.151:50051')
+    channel = grpc.insecure_channel('grpc_server:50051')
     stub = votacao_pb2_grpc.VotacaoServiceStub(channel)
 
     voto_request = votacao_pb2.VotoRequest(
         id_eleicao=request.id_eleicao,
-        id_eleitor=request.id_eleitor,
+        id_eleitor=int(request.id_eleitor),
         id_candidato=request.id_candidato
     )
 
@@ -28,3 +28,22 @@ async def votar(request: VotoRequestModel):
             data_geracao=voto_response.comprovante.data_geracao
         )
     }
+
+@app.get('/votos', response_model=list[VotosResponseModel])
+async def votos(request: VotosRequestModel = VotosRequestModel(id_eleicao="")):
+    channel = grpc.insecure_channel('grpc_server:50051')
+    stub = votacao_pb2_grpc.VotacaoServiceStub(channel)
+
+    voto_request = votacao_pb2.EleicaoVotosRequest(
+        id_eleicao=request.id_eleicao
+    )
+
+    voto_response = stub.GetEleicaoVotos(voto_request)
+
+    return [
+        VotosResponseModel(
+            id_voto=voto.id_voto,
+            id_candidato=voto.id_candidato,
+            data_voto=voto.data_voto
+        ) for voto in voto_response.votos
+    ]

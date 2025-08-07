@@ -1,6 +1,7 @@
 from src.models.voto_model import Voto, RegistroVotante
 from sqlalchemy import select
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import SQLAlchemyError
 from config.database import get_db
 
 class VotoRepository:
@@ -36,10 +37,17 @@ class VotoRepository:
         except Exception as e:
             raise e
     
-    def get_votos_por_eleicao(self, id_eleicao):
+    def get_votos_por_eleicao(self, id_eleicao: str | None = None) -> list[Voto]:
         try:
-            return self.db.execute(
-                select(Voto).where(Voto.id_eleicao == id_eleicao)
-            ).scalars().all()
-        except Exception as e:
-            raise e
+            query = select(Voto)
+            
+            if id_eleicao:
+                query = query.where(Voto.id_eleicao == id_eleicao)
+
+                
+            result = self.db.execute(query)
+            return result.scalars().all()
+            
+        except SQLAlchemyError as e:
+            self.db.rollback()
+            raise RuntimeError(f"Erro ao buscar votos: {str(e)}") from e

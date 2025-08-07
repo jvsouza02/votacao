@@ -5,7 +5,7 @@ import hmac
 repository = VotoRepository()
 
 class ComprovanteVotacaoService:
-    def get_voto_valido(self, id_voto: int):
+    def get_voto_valido(self, id_voto: str):
         voto = repository.get_voto(id_voto)
         if not voto:
             return None

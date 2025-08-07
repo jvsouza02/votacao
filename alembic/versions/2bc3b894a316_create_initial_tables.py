@@ -22,15 +22,15 @@ def upgrade() -> None:
     op.create_table(
         'votos',
         sa.Column('id_voto', postgresql.UUID(as_uuid=True), primary_key=True),
-        sa.Column('id_eleicao', sa.Integer(), nullable=False),
-        sa.Column('id_candidato', sa.Integer(), nullable=False),
+        sa.Column('id_eleicao', sa.String(length=50), nullable=False),
+        sa.Column('id_candidato', sa.String(length=50), nullable=False),
         sa.Column('hash_voto', sa.String(length=64), nullable=False, unique=True),
         sa.Column('data_voto', sa.DateTime(), nullable=False, server_default=sa.text('NOW()')),
     )
     op.create_table(
         'registro_votantes',
         sa.Column('id_registro_voto', sa.Integer(), primary_key=True),
-        sa.Column('id_eleicao', sa.Integer(), nullable=False),
+        sa.Column('id_eleicao', sa.String(length=50), nullable=False),
         sa.Column('id_eleitor', sa.Integer(), nullable=False),
         sa.Column('data_registro', sa.DateTime(), nullable=False, server_default=sa.text('NOW()')),
         sa.UniqueConstraint('id_eleitor', 'id_eleicao', name='uq_eleitor_eleicao'),
@@ -39,4 +39,3 @@ def upgrade() -> None:
 def downgrade() -> None:
     op.drop_table('registro_votantes')
     op.drop_table('votos')
-

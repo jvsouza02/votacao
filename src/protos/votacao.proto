@@ -10,7 +10,7 @@ message VotoRequest {
 
 message ComprovanteVoto {
   string id_comprovante_voto = 1;
-  int32 id_eleicao = 2;
+  string id_eleicao = 2;
   string data_voto = 3;
   string data_geracao = 4;
 }
@@ -31,12 +31,12 @@ message VotoValidoResponse {
 }
 
 message EleicaoVotosRequest {
-  int32 id_eleicao = 1;
+  string id_eleicao = 1;
 }
 
 message VotoInfo {
   string id_voto = 1;
-  int32 id_candidato = 2;
+  string id_candidato = 2;
   string data_voto = 3;
 }
 
