@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 import grpc
 from src.protos import votacao_pb2, votacao_pb2_grpc
 from src.models.voto_request_response import VotoResponseModel, VotoRequestModel, ComprovanteVotoModel, VotosRequestModel, VotosResponseModel
@@ -30,14 +30,11 @@ async def votar(request: VotoRequestModel):
     }
 
 @app.get('/votos', response_model=list[VotosResponseModel])
-async def votos(request: VotosRequestModel = VotosRequestModel(id_eleicao="")):
+async def votos(id_eleicao: str = Query(default="")):
     channel = grpc.insecure_channel('13.221.77.151:50051')
     stub = votacao_pb2_grpc.VotacaoServiceStub(channel)
 
-    voto_request = votacao_pb2.EleicaoVotosRequest(
-        id_eleicao=request.id_eleicao
-    )
-
+    voto_request = votacao_pb2.EleicaoVotosRequest(id_eleicao=id_eleicao)
     voto_response = stub.GetEleicaoVotos(voto_request)
 
     return [
