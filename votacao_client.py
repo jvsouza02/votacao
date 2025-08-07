@@ -13,9 +13,9 @@ def run():
     # voto_response = stub.Votar(voto_request)
     # print("Votar:", voto_response.sucesso, voto_response.mensagem)
 
-    voto_valido_request = votacao_pb2.VotoValidoRequest(id_voto="e58b3d4b-0184-4670-a3d0-296164330ca5")
-    voto_valido_response = stub.GetVotoValido(voto_valido_request)
-    print("Voto válido:", voto_valido_response.valido, voto_valido_response.mensagem)
+    # voto_valido_request = votacao_pb2.VotoValidoRequest(id_voto="e58b3d4b-0184-4670-a3d0-296164330ca5")
+    # voto_valido_response = stub.GetVotoValido(voto_valido_request)
+    # print("Voto válido:", voto_valido_response.valido, voto_valido_response.mensagem)
 
     # eleicao_votos_request = votacao_pb2.EleicaoVotosRequest(id_eleicao="2")
     # eleicao_votos_response = stub.GetEleicaoVotos(eleicao_votos_request)

@@ -7,7 +7,7 @@ app = FastAPI()
 
 @app.post('/votar', response_model=VotoResponseModel)
 async def votar(request: VotoRequestModel):
-    channel = grpc.insecure_channel('grpc_server:50051')
+    channel = grpc.insecure_channel('13.221.77.151:50051')
     stub = votacao_pb2_grpc.VotacaoServiceStub(channel)
 
     voto_request = votacao_pb2.VotoRequest(
@@ -31,7 +31,7 @@ async def votar(request: VotoRequestModel):
 
 @app.get('/votos', response_model=list[VotosResponseModel])
 async def votos(request: VotosRequestModel = VotosRequestModel(id_eleicao="")):
-    channel = grpc.insecure_channel('grpc_server:50051')
+    channel = grpc.insecure_channel('13.221.77.151:50051')
     stub = votacao_pb2_grpc.VotacaoServiceStub(channel)
 
     voto_request = votacao_pb2.EleicaoVotosRequest(
