@@ -1,9 +1,18 @@
 from fastapi import FastAPI, Query
+from fastapi.middleware.cors import CORSMiddleware
 import grpc
 from src.protos import votacao_pb2, votacao_pb2_grpc
 from src.models.voto_request_response import VotoResponseModel, VotoRequestModel, ComprovanteVotoModel, VotosRequestModel, VotosResponseModel
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],        
+    allow_credentials=True,     
+    allow_methods=["*"],        
+    allow_headers=["*"],        
+)
 
 @app.post('/votar', response_model=VotoResponseModel)
 async def votar(request: VotoRequestModel):
