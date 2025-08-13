@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 import grpc
 from src.protos import votacao_pb2, votacao_pb2_grpc
@@ -27,10 +27,10 @@ async def votar(request: VotoRequestModel):
 
     voto_response = stub.Votar(voto_request)
     if not voto_response.sucesso:
-        return {
-            'sucesso': voto_response.sucesso,
-            'mensagem': voto_response.mensagem
-        }
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=voto_response.mensagem
+        )
 
     return {
         'sucesso': voto_response.sucesso,
