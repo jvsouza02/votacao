@@ -44,7 +44,7 @@ class Voto:
         return True
     
     def validar_voto(self):
-        # self.validar_voto_unico()
+        self.validar_voto_unico()
         # self.validar_eleicao_ativa()
         # self.validar_candidato()
         return True
