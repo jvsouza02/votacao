@@ -25,13 +25,7 @@ async def votar(request: VotoRequestModel):
         id_candidato=request.id_candidato
     )
 
-    try:
-        voto_response = stub.Votar(voto_request)
-    except Exception:
-        return {
-            'sucesso': False,
-            'mensagem': "Ocorreu um erro ao processar o voto."
-        }
+    voto_response = stub.Votar(voto_request)
 
     return {
         'sucesso': voto_response.sucesso,

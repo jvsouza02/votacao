@@ -9,4 +9,4 @@ def processar_voto(self, id_eleicao, id_eleitor, id_candidato):
     try:
         return service.votar(voto)
     except Exception as e:
-        raise self.retry(exc=e, countdown=30)
+        raise e
