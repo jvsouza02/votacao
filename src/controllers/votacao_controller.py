@@ -34,7 +34,7 @@ class VotacaoController(votacao_pb2_grpc.VotacaoServiceServicer):
         except ValueError as err:
             return votacao_pb2.VotoResponse(
                 sucesso=False,
-                mensagem=str(err)
+                mensagem=err.args[0]
             )
 
     def GetVotoValido(self, request, context):
