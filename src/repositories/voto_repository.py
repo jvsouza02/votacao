@@ -28,14 +28,16 @@ class VotoRepository:
     
     def get_voto_eleitor_em_eleicao(self, id_eleitor, id_eleicao):
         try:
-            return self.db.execute(
+            result = self.db.execute(
                 select(RegistroVotante).where(
                     RegistroVotante.id_eleitor == id_eleitor,
                     RegistroVotante.id_eleicao == id_eleicao
-                ).scalars().first()
+                )
             )
+            return result.scalars().first()
         except Exception as e:
             raise e
+
     
     def get_votos_por_eleicao(self, id_eleicao: str | None = None) -> list[Voto]:
         try:
