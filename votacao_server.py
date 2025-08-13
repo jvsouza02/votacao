@@ -27,10 +27,10 @@ async def votar(request: VotoRequestModel):
 
     try:
         voto_response = stub.Votar(voto_request)
-    except grpc.RpcError as e:
+    except Exception:
         return {
             'sucesso': False,
-            'mensagem': str(e)
+            'mensagem': "Ocorreu um erro ao processar o voto."
         }
 
     return {
