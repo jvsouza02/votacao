@@ -25,7 +25,13 @@ async def votar(request: VotoRequestModel):
         id_candidato=request.id_candidato
     )
 
-    voto_response = stub.Votar(voto_request)
+    try:
+        voto_response = stub.Votar(voto_request)
+    except grpc.RpcError as e:
+        return {
+            'sucesso': False,
+            'mensagem': str(e)
+        }
 
     return {
         'sucesso': voto_response.sucesso,
