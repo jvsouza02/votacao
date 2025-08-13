@@ -26,6 +26,11 @@ async def votar(request: VotoRequestModel):
     )
 
     voto_response = stub.Votar(voto_request)
+    if not voto_response.sucesso:
+        return {
+            'sucesso': voto_response.sucesso,
+            'mensagem': voto_response.mensagem
+        }
 
     return {
         'sucesso': voto_response.sucesso,
