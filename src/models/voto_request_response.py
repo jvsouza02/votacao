@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Optional
 
 class VotoRequestModel(BaseModel):
     id_eleicao: str
@@ -14,7 +14,7 @@ class ComprovanteVotoModel(BaseModel):
 class VotoResponseModel(BaseModel):
     sucesso: bool
     mensagem: str
-    comprovante: ComprovanteVotoModel
+    comprovante: Optional[ComprovanteVotoModel] = None
 
 class VotosRequestModel(BaseModel):
     id_eleicao: str
